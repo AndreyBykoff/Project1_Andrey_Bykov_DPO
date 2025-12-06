@@ -27,6 +27,7 @@ def process_command(game_state, command) :
         str_command, str_addition = command.split(' ',1)
     else:
         str_command = command
+        str_addition = ''
     match str_command :
         case 'look' :
             describe_current_room(game_state)
@@ -44,6 +45,8 @@ def process_command(game_state, command) :
             show_inventory(game_state)
         case 'quit':
             return
+        case 'open':
+            attempt_open_treasure(game_state)
         case _:
             print('Команда не принята, повторите ввод!')
     

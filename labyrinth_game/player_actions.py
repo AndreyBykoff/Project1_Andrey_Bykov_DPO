@@ -23,16 +23,20 @@ def get_input(prompt="> "):
             return "quit"
 
 def move_player(game_state, direction):
-    current_room_check = ROOMS[game_state['current_room']]
-    check_way = current_room_check['exits'].get(direction)
-    if (check_way):
-        new_room = ROOMS[check_way]
-        new_room_defenition = new_room['description']
-        game_state['current_room'] = check_way
-        game_state['steps_taken'] += 1
-        describe_current_room(game_state)
-    else:
-        print('В этом направлении идти нельзя')
+    if (not direction) :
+        print("Укажите направление")
+        return 
+    else :
+        current_room_check = ROOMS[game_state['current_room']]
+        check_way = current_room_check['exits'].get(direction)
+        if (check_way):
+            new_room = ROOMS[check_way]
+            new_room_defenition = new_room['description']
+            game_state['current_room'] = check_way
+            game_state['steps_taken'] += 1
+            describe_current_room(game_state)
+        else:
+            print('В этом направлении идти нельзя')
 
 
 def take_item(game_state, item_name):
@@ -54,6 +58,9 @@ def use_item(game_state, item_name):
             case 'sword':
                 print('Я чувствую себя уверенее')
             case 'treasure_key':
+                if (item_name not in game_state['items'] ) :
+                    print('У вас нет ключа от судука, идите и найдите его!')
+                    return
                 print("Вы применяете ключ, и замок щёлкает. Сундук открыт!\nВ сундуке сокровище! Вы победили!")
                 game_state['game_over'] = True
                 ROOMS['treasure_room'].get('items').pop('treasure_chest' , None)
