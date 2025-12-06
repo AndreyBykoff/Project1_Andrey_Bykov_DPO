@@ -2,13 +2,12 @@
 name = "project1-andrey-bykov-dpo"
 version = "0.1.0"
 description = ""
-
-
 readme = "README.md"
-
 license = "0"  # Usually license is specified differently, e.g., "MIT"
-
 packages = [{ include = "labyrinth_game" }]
+
+[tool.poetry.dependencies]
+python = ">=3.7"
 
 
 [build-system]
@@ -19,3 +18,19 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 project = "labyrinth_game.main:main"
+
+
+[tool.ruff]
+line-length = 88
+
+exclude = ["venv", ".venv", "dist", "__pycache__"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = []
+
+
+[dependency-groups]
+dev = [
+    "ruff (>=0.14.8,<0.15.0)"
+]
