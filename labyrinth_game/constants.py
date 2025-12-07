@@ -8,7 +8,7 @@ ROOMS = {
     },
     'hall': {
         'description': 'Большой зал с эхом. По центру стоит пьедестал с запечатанным сундуком.',
-        'exits': {'south': 'entrance', 'west': 'library', 'north': 'treasure_room'},
+        'exits': {'south': 'entrance', 'west': 'library', 'north': 'dinning_room'},
         'items': [],
         'puzzle': ('На пьедестале надпись: "Назовите число, которое идет после девяти". Введите ответ цифрой или словом.', '10')
     },
@@ -35,6 +35,22 @@ ROOMS = {
           'exits': {'south': 'hall'},
           'items': ['treasure_chest'],
           'puzzle': ('Дверь защищена кодом. Введите код (подсказка: это число пятикратного шага, 2*5= ? )', '10')
+    },
+    'dinning_room': {
+          'description': 'Комната, посредине комнаты большой стол. Накрыт ужин, горят свечи, но никого нет.',
+          'exits': {'south': 'hall', 'east': 'living_room'},
+          'items': ['treasure_key'],
+          'puzzle': ('Здесь живет старый дух. Его загадка, сколько будет 7*8= ?)', '56')
+    },
+    'living_room': {
+          'description': 'Комната, большая кровать, перед ней красная вуаль и никого ... .',
+          'exits': {'west': 'dinning_room', 'south': 'treasure_room'},
+          'items': [],
+          'puzzle': ()
     }
+
+
+
+
     # ... добавьте сюда остальные комнаты
 }

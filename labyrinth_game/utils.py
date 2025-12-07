@@ -1,6 +1,12 @@
 # labyrinth_game/utils.py
 from constants import ROOMS
-from player_actions import use_item
+ #from player_actions import *
+#from player_actions import use_item
+#import constants
+import player_actions
+
+
+
 
 
 def describe_current_room(game_state):
@@ -35,7 +41,12 @@ def solve_puzzle(game_state):
         if (puzzle[1] == result):
             print('Вы ответили правильно')
             ROOMS[game_state['current_room']].pop('puzzle', None)
-            return True
+            if (game_state['current_room'] == 'treasure_room') : 
+                print("Вы применяете код, и замок щёлкает. Сундук открыт!\nВ сундуке сокровище! Вы победили!")
+                game_state['game_over'] = True
+                ROOMS['treasure_room'].get('items').remove('treasure_chest')
+            else :
+                return True
         else:
             print('Не верно, попробуйте снова')
             return False    
@@ -46,7 +57,11 @@ def solve_puzzle(game_state):
 def attempt_open_treasure(game_state):
     # Если мы в сокровищнецы
     if ('treasure_chest' in ROOMS[game_state['current_room']].get('items')):
-        use_item( game_state, 'treasure_key')
+        if ('treasure_key' in game_state['player_inventory']):
+            player_actions.use_item( game_state, 'treasure_key')
+        else:
+            print('У вас нет ключа от судука, Но вы можете отгадать загадку. Используйте команду openIt')
+            
     else:
         print('В комнате нет сундука сокровищ')
     return
