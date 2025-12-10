@@ -13,7 +13,7 @@ def show_inventory(game_state):
 
 def get_input(prompt="> "):
         try:
-            prompt = input(f'Для выхода из игры введите Quit или Exit\nВведите команду {prompt}')
+            prompt = input(f'Для выхода из игры введите Quit \nВведите команду {prompt}')
             return prompt
         except (KeyboardInterrupt, EOFError):
             print("\nВыход из игры.")
@@ -27,8 +27,15 @@ def move_player(game_state, direction):
         current_room_check = ROOMS[game_state['current_room']]
         check_way = current_room_check['exits'].get(direction)
         if (check_way):
-            new_room = ROOMS[check_way]
-            new_room_defenition = new_room['description']
+            if ('treasure_room' == check_way ) :
+             if ('rusty_key' in game_state['player_inventory']) : 
+                print("Вы используете найденный ключ, чтобы открыть путь в комнату сокровищ.")
+             else :
+                print("Дверь заперта. Нужен ключ, чтобы пройти дальше.")
+                return
+            utils.random_event(game_state)
+#            new_room = ROOMS[check_way]
+#            new_room_defenition = new_room['description']
             game_state['current_room'] = check_way
             game_state['steps_taken'] += 1
             utils.describe_current_room(game_state)
